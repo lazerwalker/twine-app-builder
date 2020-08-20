@@ -36,7 +36,7 @@ jobs:
         path: out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
 
   linuxBuild:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -52,7 +52,7 @@ jobs:
     - name: Make an exe!
       run: npm run make
 
-    - name: Upload Windows binary
+    - name: Upload Linux binary
       uses: actions/upload-artifact@v2
       with:
         name: linux
@@ -75,8 +75,8 @@ jobs:
     - name: Make an exe!
       run: npm run make
 
-    - name: Upload Windows binary
+    - name: Upload macOS binary
       uses: actions/upload-artifact@v2
       with:
         name: macos
-        path: out        
+        path: out/make/zip/darwin/x64/my-app-darwin-x64-1.0.0  
