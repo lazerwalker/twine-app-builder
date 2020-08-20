@@ -52,11 +52,17 @@ jobs:
     - name: Make an exe!
       run: npm run make
 
-    - name: Upload Linux binary
+    - name: Upload Linux deb binary
       uses: actions/upload-artifact@v2
       with:
-        name: linux
-        path: out
+        name: linux-deb
+        path: out/make/deb/x64/my-app_1.0.0_amd64.deb
+
+    - name: Upload Linux rpm binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-rpm
+        path: out/make/rpm/x64/my-app-1.0.0-1.x64_64.rpm
 
   macBuild:
     runs-on: macos-latest
@@ -79,4 +85,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: macos
-        path: out/make/zip/darwin/x64/my-app-darwin-x64-1.0.0  
+        path: out/make/zip/darwin/x64/my-app-darwin-x64-1.0.0.zip
