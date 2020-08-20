@@ -29,3 +29,9 @@ jobs:
 
     - name: Make an exe!
       run: npm run make
+
+    - name: Upload math result for job 1
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows.exe
+        path: out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
