@@ -12,8 +12,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  windowsBuild:
     runs-on: windows-latest
 
     steps:
@@ -30,8 +29,54 @@ jobs:
     - name: Make an exe!
       run: npm run make
 
-    - name: Upload math result for job 1
+    - name: Upload Windows binary
       uses: actions/upload-artifact@v2
       with:
-        name: windows.exe
+        name: windows
         path: out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
+
+  linuxBuild:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - name: npm install
+      run: npm install
+
+    - name: Make an exe!
+      run: npm run make
+
+    - name: Upload Windows binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux
+        path: out
+
+  macBuild:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - name: npm install
+      run: npm install
+
+    - name: Make an exe!
+      run: npm run make
+
+    - name: Upload Windows binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: macos
+        path: out        
