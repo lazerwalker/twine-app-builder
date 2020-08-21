@@ -10,6 +10,10 @@ on:
   pull_request:
     branches: [ main ]
 
+defaults:
+  run:
+    shell: bash
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   windowsBuild:
@@ -24,13 +28,13 @@ jobs:
         node-version: 12
 
     - name: set up electron forge
-      run: npx electron-forge windows-app
+      run: npx create-electron-app windows-app
 
     - name: move webapp into Electron folder
       shell: bash
       run: |
-        rm -rf window-app/src
-        mv ./* windows-app/src
+        rm -rf ./window-app/src
+        mv ./* ./windows-app/src
     
     - name: build
       shell: bash
