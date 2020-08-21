@@ -44,7 +44,14 @@ jobs:
         npm install
         npm run make
 
-    - name: publish
-      shell: bash
-      working-directory: ./windows-app
-      run: npm run publish       
+    - name: release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          electron-app/out/**/*.deb
+          electron-app/out/**/*.dmg
+          electron-app/out/**/*Setup.exe
+          electron-app/out/**/*.rpm
+          electron-app/out/**/*.zip
