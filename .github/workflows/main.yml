@@ -44,7 +44,7 @@ jobs:
         mv ./icon.png ./app
 
     - name: Put the current git tag into ENV variables
-        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
 
     - name: Generate icons
       working-directory: ./app
