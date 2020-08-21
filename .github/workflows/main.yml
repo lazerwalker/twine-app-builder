@@ -28,13 +28,13 @@ jobs:
         node-version: 12
 
     - name: set up electron forge
-      run: npx create-electron-app windows-app
+      uses: actions/checkout@v2
+      repository: lazerwalker/electron-wrapper-template
+      working-directory: windows-app
 
     - name: move webapp into Electron folder
       shell: bash
-      run: |
-        rm -rf ./window-app/src
-        mv ./src/* ./windows-app/src
+      run: mv ./src/* ./windows-app/src
     
     - name: build
       shell: bash
