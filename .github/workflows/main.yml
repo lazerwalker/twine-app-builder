@@ -81,7 +81,7 @@ jobs:
         CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
 
     - name: Add Windows certificate
-      if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
+      if: matrix.os == 'windows-latest' && steps.vars.outputs.HAS_WINDOWS_CREDS
       id: write_file
       uses: timheuer/base64-to-file@v1
       with:
