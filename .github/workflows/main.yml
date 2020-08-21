@@ -29,22 +29,34 @@ jobs:
       with:
         node-version: 12
 
-    - name: set up electron forge
+    - name: Check out Electron app template
       uses: actions/checkout@v2
       with:
         repository: lazerwalker/electron-wrapper-template
         path: app
 
-    - name: move webapp into Electron folder
-      run: mv ./src/* ./app/src
-    
-    - name: build
-      working-directory: ./app
-      run: |
-        npm install
-        npm run make
+    - name: Set up Electron app environment
+      run: npm install
 
-    - name: release
+    - name: move webapp into Electron folder
+      run: |
+        mv ./src/* ./app/src
+        mv ./icon.png ./app
+
+    - name: Put the current git tag into ENV variables
+        run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+
+    - name: Generate icons
+      working-directory: ./app
+      run: npm run build-icons
+
+    - name: Build the app
+      working-directory: ./app
+      env:
+          NAME: My Twine game
+      run: npm run make
+
+    - name: Release on GitHub
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
