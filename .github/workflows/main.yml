@@ -29,8 +29,9 @@ jobs:
 
     - name: set up electron forge
       uses: actions/checkout@v2
-      repository: lazerwalker/electron-wrapper-template
-      working-directory: windows-app
+      with:
+        repository: lazerwalker/electron-wrapper-template
+        working-directory: windows-app
 
     - name: move webapp into Electron folder
       shell: bash
