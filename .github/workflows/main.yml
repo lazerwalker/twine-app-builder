@@ -29,6 +29,17 @@ jobs:
       with:
         node-version: 12
 
+  - name: Test for presence of Windows or macOS codesigning secrets
+      id: vars
+      shell: bash
+      run: |
+          unset HAS_APPLE_CREDS
+          if [-n $CERTIFICATE_OSX_APPLICATION] or [-n $CERTIFICATE_PASSWORD]; then HAS_APPLE_CREDS='true' ; fi
+          echo ::set-output name=HAS_APPLE_CREDS::${HAS_APPLE_CREDS}
+      env:
+        CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
+        CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+
     - name: Check out Electron app template
       uses: actions/checkout@v2
       with:
@@ -49,7 +60,7 @@ jobs:
       run: npm run build-icons
 
     - name: Add MacOS certs
-      if: matrix.os == 'macos-latest' && startsWith(github.ref, 'refs/tags/') && secrets.CERTIFICATE_OSX_APPLICATION && secrets.CERTIFICATE_PASSWORD
+      if: matrix.os == 'macos-latest' && steps.vars.outputs.HAS_APPLE_CREDS
       run: |
         KEY_CHAIN=build.keychain
         CERTIFICATE_P12=certificate.p12
