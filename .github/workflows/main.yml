@@ -33,11 +33,9 @@ jobs:
         path: windows-app
 
     - name: move webapp into Electron folder
-      shell: bash
       run: mv ./src/* ./windows-app/src
     
     - name: build
-      shell: bash
       working-directory: ./windows-app
       run: |
         npm install
