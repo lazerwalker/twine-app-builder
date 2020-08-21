@@ -31,7 +31,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: lazerwalker/electron-wrapper-template
-        working-directory: windows-app
+        path: windows-app
 
     - name: move webapp into Electron folder
       shell: bash
