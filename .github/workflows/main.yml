@@ -40,7 +40,9 @@ jobs:
     - name: build
       shell: bash
       working-directory: ./windows-app
-      run: npm run make
+      run: |
+        npm install
+        npm run make
 
     - name: Upload Windows binary
       uses: actions/upload-artifact@v2
