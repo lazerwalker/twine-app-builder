@@ -36,6 +36,7 @@ jobs:
         path: app
 
     - name: Set up Electron app environment
+      working-directory: ./app
       run: npm install
 
     - name: move webapp into Electron folder
