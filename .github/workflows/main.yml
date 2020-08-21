@@ -44,8 +44,7 @@ jobs:
         npm install
         npm run make
 
-    - name: Upload Windows binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: windows
-        path: windows-app/out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
+    - name: publish
+      shell: bash
+      working-directory: ./windows-app
+      run: npm run publish       
