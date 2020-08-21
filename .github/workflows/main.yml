@@ -34,7 +34,7 @@ jobs:
       shell: bash
       run: |
         unset HAS_APPLE_CREDS
-        if [ -n $CERTIFICATE_OSX_APPLICATION ] && [ -n $CERTIFICATE_PASSWORD ]; then HAS_APPLE_CREDS='true' ; fi
+        if [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then HAS_APPLE_CREDS='true' ; fi
         echo set-output name=HAS_APPLE_CREDS::${HAS_APPLE_CREDS}
         echo ::set-output name=HAS_APPLE_CREDS::${HAS_APPLE_CREDS}
       env:
