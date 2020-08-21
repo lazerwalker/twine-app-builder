@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -36,9 +36,14 @@ jobs:
         unset HAS_APPLE_CREDS
         if [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then HAS_APPLE_CREDS='true' ; fi
         echo set-output name=HAS_APPLE_CREDS::${HAS_APPLE_CREDS}
+
+        unset HAS_WINDOWS_CREDS
+        if [[ -n $CERTIFICATE_WINDOWS_PFX ]]; then HAS_WINDOWS_CREDS='true' ; fi
+        echo set-output name=HAS_WINDOWS_CREDS::${HAS_WINDOWS_CREDS}        
       env:
         CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
         CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+        CERTIFICATE_WINDOWS_PFX: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
     - name: Check out Electron app template
       uses: actions/checkout@v2
