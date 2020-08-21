@@ -51,7 +51,7 @@ jobs:
     - name: Build the app
       working-directory: ./app
       env:
-          NAME: My Twine game
+        APP_NAME: My Twine game
       run: npm run make
 
     - name: Release on GitHub
