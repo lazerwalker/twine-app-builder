@@ -23,66 +23,22 @@ jobs:
       with:
         node-version: 12
 
-    - name: npm install
-      run: npm install
+    - name: set up electron forge
+      run: npx electron-forge windows-app
 
-    - name: Make an exe!
+    - name: move webapp into Electron folder
+      shell: bash
+      run: |
+        rm -rf window-app/src
+        mv ./* windows-app/src
+    
+    - name: build
+      shell: bash
+      working-directory: ./windows-app
       run: npm run make
 
     - name: Upload Windows binary
       uses: actions/upload-artifact@v2
       with:
         name: windows
-        path: out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
-
-  linuxBuild:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    - name: npm install
-      run: npm install
-
-    - name: Make an exe!
-      run: npm run make
-
-    - name: Upload Linux deb binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: linux-deb
-        path: out/make/deb/x64/my-app_1.0.0_amd64.deb
-
-    - name: Upload Linux rpm binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: linux-rpm
-        path: out/make/rpm/x64/my-app-1.0.0-1.x64_64.rpm
-
-  macBuild:
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    - name: npm install
-      run: npm install
-
-    - name: Make an exe!
-      run: npm run make
-
-    - name: Upload macOS binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: macos
-        path: out/make/zip/darwin/x64/my-app-darwin-x64-1.0.0.zip
+        path: windows-app/out/make/squirrel.windows/x64/my-app-1.0.0 Setup.exe
