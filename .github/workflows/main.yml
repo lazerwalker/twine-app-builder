@@ -34,7 +34,7 @@ jobs:
       shell: bash
       run: |
         rm -rf ./window-app/src
-        mv ./* ./windows-app/src
+        mv ./src/* ./windows-app/src
     
     - name: build
       shell: bash
