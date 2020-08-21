@@ -15,8 +15,11 @@ defaults:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  windowsBuild:
-    runs-on: windows-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,13 +33,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: lazerwalker/electron-wrapper-template
-        path: windows-app
+        path: app
 
     - name: move webapp into Electron folder
-      run: mv ./src/* ./windows-app/src
+      run: mv ./src/* ./app/src
     
     - name: build
-      working-directory: ./windows-app
+      working-directory: ./app
       run: |
         npm install
         npm run make
@@ -47,8 +50,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          electron-app/out/**/*.deb
-          electron-app/out/**/*.dmg
-          electron-app/out/**/*Setup.exe
-          electron-app/out/**/*.rpm
-          electron-app/out/**/*.zip
+          app/out/**/*.deb
+          app/out/**/*.dmg
+          app/out/**/*Setup.exe
+          app/out/**/*.rpm
+          app/out/**/*.zip
