@@ -23,6 +23,6 @@ jobs:
         with:
           node-version: 12
 
-      - uses: lazerwalker/twine-electron-action@v1-alpha
+      - uses: lazerwalker/twine-electron-action@v2-alpha
         with:
           app-name: My Twine Game
