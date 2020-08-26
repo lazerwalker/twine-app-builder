@@ -17,6 +17,12 @@ jobs:
         os: [macos-latest, windows-latest]
 
     steps:
-    - uses: lazerwalker/twine-electron-action@v1-alpha
-      with:
-        app-name: My Twine Game
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - uses: lazerwalker/twine-electron-action@v1-alpha
+        with:
+          app-name: My Twine Game
