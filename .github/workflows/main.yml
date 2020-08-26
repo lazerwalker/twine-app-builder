@@ -17,6 +17,6 @@ jobs:
         os: [macos-latest, windows-latest]
 
     steps:
-    - uses: lazerwalker/twine-electron@v1-alpha
+    - uses: lazerwalker/twine-electron-action@v1-alpha
       with:
         app-name: My Twine Game
