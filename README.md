@@ -1,6 +1,6 @@
 # Twine Wrapper
 
-![Build and Test](https://github.com/lazerwalker/twine-electrion-test/actions/workflows/main.yml/badge.svg)
+![Build and Test](https://github.com/lazerwalker/twine-electron-test/actions/workflows/main.yml/badge.svg)
 
 This is a project to take your existing HTML5 game and automatically generate a desktop version for Windows and macOS. It works with any game whose output is HTML/JavaScript/CSS.
 
@@ -15,7 +15,7 @@ There are more detailed instructions below, but here's what the high-level flow 
 1. You fork this git repo, and add your browser game to it (an `index.html` page and maybe some extra files like images or audio)
 2. When you commit those changes to git and push them to GitHub, GitHub will automatically take your game files and bundle them up into downloadable desktop binaries
 3. The "Releases" section of your project's GitHub (https://github.com/username/repo/releases) will now contain downloadable Windows and Mac versions of your game
-4. Any time you push changes to your GitHub repo, this process will repeat and new binaries will be auto-generated!
+4. Any time you add a new git tag to your repo, this process will repeat and new binaries will be auto-generated!
 
 ## Getting Started
 
@@ -23,7 +23,9 @@ There are more detailed instructions below, but here's what the high-level flow 
 1. Move your game files into your forked repo. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
 1. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down around line 89, in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
 1. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
-1. Commit those changes to your git repo, and push those changes up to your forked repo on GitHub.
+1. Commit those changes to your git repo
+1. Create a new git tag by running `git tag [tag-name]` with whatever you would like the new version number for your build to be. Your version number must start with the character "v". This is intended to be used with numeric version numbers (e.g. `v1` or `v2.10.3`), but other than the 'v' restriction you can use whatever versioning scheme you would like.
+1. Push both your changes and your new git tag (via `git push --tags`) to GitHub
 1. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
 1. When the build is done, the "Release" tab in your repo will contain download links.
 
@@ -66,7 +68,7 @@ Under the hood, project relies on two core pieces of technology: [GitHub Actions
 
 I maintain a GitHub repo that contains a minimal scaffolding project built on Electron. When new code is pushed in your repo, a GitHub Action runs that grabs your HTML files, injects them into that scaffolding project, and builds the project for you using Electron tools.
 
-## Why don't you support <X Feature>?
+## "Why don't you support [insert feature here]?"
 
 Open a GitHub Issue in this repo!
 
