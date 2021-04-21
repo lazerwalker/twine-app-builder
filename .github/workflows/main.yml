@@ -2,8 +2,8 @@ name: Build the Twine game
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 defaults:
   run:

@@ -1,10 +1,10 @@
-# Twine Wrapper
+# Twine App Builder
 
-![Build and Test](https://github.com/lazerwalker/twine-electron-test/actions/workflows/main.yml/badge.svg)
+![Build and Test](https://github.com/lazerwalker/twine-app-builder/actions/workflows/main.yml/badge.svg)
 
 This is a project to take your existing HTML5 game and automatically generate a desktop version for Windows and macOS. It works with any game whose output is HTML/JavaScript/CSS.
 
-The primary intention of this tool is to take games made in browser-focused tools like [Twine](https://twinery.org) (both 1 and 2), [Bitsy](http://www.bitsy.org/), and [PuzzleScript](https://www.puzzlescript.net/) and produce desktop builds suitable for distribution on platforms such as Steam or Itch, but you may find other uses for it as well!
+The primary intention of this tool is to take games made in browser-based game development tools like [Twine](https://twinery.org) (both 1 and 2), [Bitsy](http://www.bitsy.org/), and [PuzzleScript](https://www.puzzlescript.net/) and produce desktop builds suitable for distribution on platforms such as Steam or Itch, but you may find other uses for it as well!
 
 To use this, you will need basic familiarity with git and GitHub. No other technical expertise is needed beyond whatever you need to make your game!
 
@@ -15,23 +15,61 @@ There are more detailed instructions below, but here's what the high-level flow 
 1. You fork this git repo, and add your browser game to it (an `index.html` page and maybe some extra files like images or audio)
 2. When you commit those changes to git and push them to GitHub, GitHub will automatically take your game files and bundle them up into downloadable desktop binaries
 3. The "Releases" section of your project's GitHub (https://github.com/username/repo/releases) will now contain downloadable Windows and Mac versions of your game
-4. Any time you add a new git tag to your repo, this process will repeat and new binaries will be auto-generated!
+4. Any time you push new code to your repo, this process will repeat and new binaries will be auto-generated!
 
 ## Getting Started
 
-1. Fork this repo. Assuming you're reading this README on GitHub, click the "Fork" button in the top-right of this repo
-1. Move your game files into your forked repo. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
+1. Fork this repo. While viewing [this README](https://github.com/lazerwalker/twine-app-builder/) on GitHub, click the green "Use this Template" button at the top of the page.
+1. Move your game files into your copy of the repo. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
 1. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down around line 89, in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
 1. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
-1. Commit those changes to your git repo
-1. Create a new git tag by running `git tag [tag-name]` with whatever you would like the new version number for your build to be. Your version number must start with the character "v". This is intended to be used with numeric version numbers (e.g. `v1` or `v2.10.3`), but other than the 'v' restriction you can use whatever versioning scheme you would like.
-1. Push both your changes and your new git tag (via `git push --tags`) to GitHub
+1. Commit and push these changes to GitHub
 1. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
 1. When the build is done, the "Release" tab in your repo will contain download links.
 
 As you make changes to your game, repeat the last few steps. Every new git commit that you make and push up to GitHub will result in a new build of your game.
 
 ## Advanced Features
+
+### Building less frequently
+
+By default, this generates new builds every time you push a new git commit to the `main` branch to GitHub. This is simple and easy to use, but it might be tiresome and unnecessary if you're making a lot of rapid changes to your game.
+
+For more mature projects, it's recommended that you make triggering builds a slightly more manual process. Here are two recommended paths that both require slightly more git knowledge:
+
+#### Build by pushing to a different branch
+
+Instead of generating binaries every time you push code to the main branch, one approach is to work off of a development branch, and merge those changes into a production branch every time you want a new build.
+
+As mentioned, by default this GitHub Action runs every time code is pushed to `main`. An easy process change would be to push work-in-progress commits to a branch called `dev` (or similar), and treat `main` as your production branch. If you would prefer dev work to happen on `main`, you can create a separate branch intended for production builds (e.g. `prod`), and you just need to update the correct [GitHub Actions workflow line](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L6) to trigger builds off of `prod` instead of `main`.
+
+You will also need to make this change if your default git branch happens to be something other than `main`. For older existing projects, your main/default branch may be called `master`.
+
+#### Build by pushing git tags
+
+A common approach to software versioning is to use git's built-in tagging system to flag certain git commits as certain versions. A more advanced option for this tool is to tell GitHub Actions to build new desktop binaries only when you push a new git tag that matches a certain format. This is my personal preferred approach, as it makes it easier to maintain clear version numbers, but it does require more experience with git and version control.
+
+At the top of the [GitHub Actions workflow file](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L3-L6) lives some code that tells GitHub to run the Action whenever new code is pushed to `main`:
+
+```
+on:
+  push:
+    branches:
+      - main
+```
+
+Instead, replace that in your own fork with a command to build any time a tag is created
+
+```
+on:
+  push:
+    tags:
+      - '*'
+```
+
+Using the git command-line tool, you can create a tag pointing to the most recent git commit by typing `git tag TAG_NAME` (e.g. `git tag v1.0.3`). You can then push that tag to GitHub by running `git push --tags`, which (if you've made the previous change) will trigger a new build.
+
+For more advanced users, I recommend setting the tag string in GitHub actions to something like "v*" or "v*._._" to only trigger builds on tags that resemble Semantic Versioning-style version numbers. But don't worry if you have no idea what that means.
 
 ### Customization
 
