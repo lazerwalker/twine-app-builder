@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 12
 
-      - name Print tag name
+      - name: Print tag name
         shell: bash
         run: echo $TAG
         env: 
