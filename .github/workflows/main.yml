@@ -100,9 +100,8 @@ jobs:
       - name: Release on GitHub (Built via Tag)
         uses: ncipollo/release-action@v1
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
             app/out/**/*.deb
             app/out/**/*.dmg
@@ -114,9 +113,8 @@ jobs:
       - name: Release on GitHub (Automated Tag)
         uses: ncipollo/release-action@v1
         if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ format('{0}.0.0', github.run_number) }}
           commit: github.ref
           artifacts: |
