@@ -115,8 +115,8 @@ jobs:
         if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ format('{0}.0.0', github.run_number) }}
-          commit: github.ref
+          tag_name: ${{ format('{0}.0.0', github.run_number) }}
+          commit: github.sha
           artifacts: |
             app/out/**/*.deb
             app/out/**/*.dmg
