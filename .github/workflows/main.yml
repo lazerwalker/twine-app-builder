@@ -24,6 +24,12 @@ jobs:
         with:
           node-version: 12
 
+      - name Print tag name
+        shell: bash
+        run: echo $TAG
+        env: 
+          TAG: ${{ format('{0}.0.0', github.run_number) }}
+
       - name: Test for presence of Windows or macOS codesigning secrets
         id: vars
         shell: bash
@@ -107,8 +113,7 @@ jobs:
             app/out/**/*.dmg
             app/out/**/*Setup.exe
             app/out/**/*.rpm
-            app/out/**/*.zip
-            
+            app/out/**/*.zip   
       
       - name: Release on GitHub (Automated Tag)
         uses: ncipollo/release-action@v1
