@@ -45,7 +45,7 @@ As mentioned, by default this GitHub Action runs every time code is pushed to `m
 
 You will also need to make this change if your default git branch happens to be something other than `main`. For older existing projects, your main/default branch may be called `master`.
 
-#### Build by pushing git tags
+#### Build by pushing git tags (recommended for advanced users)
 
 A common approach to software versioning is to use git's built-in tagging system to flag certain git commits as certain versions. A more advanced option for this tool is to tell GitHub Actions to build new desktop binaries only when you push a new git tag that matches a certain format. This is my personal preferred approach, as it makes it easier to maintain clear version numbers, but it does require more experience with git and version control.
 
@@ -64,12 +64,12 @@ Instead, replace that in your own fork with a command to build any time a tag is
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 ```
 
 Using the git command-line tool, you can create a tag pointing to the most recent git commit by typing `git tag TAG_NAME` (e.g. `git tag v1.0.3`). You can then push that tag to GitHub by running `git push --tags`, which (if you've made the previous change) will trigger a new build.
 
-For more advanced users, I recommend setting the tag string in GitHub actions to something like "v*" or "v*._._" to only trigger builds on tags that resemble Semantic Versioning-style version numbers. But don't worry if you have no idea what that means.
+Windows version numbers can only contain numbers and periods, which means your version numbers must also conform to that. This project is hardcoded to check for a preceding 'v' (as in the YAML above), so you should be sure to make your git tags of the form `vX.Y.Z`.
 
 ### Customization
 
