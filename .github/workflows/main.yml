@@ -24,12 +24,6 @@ jobs:
         with:
           node-version: 12
 
-      - name: Print tag name
-        shell: bash
-        run: echo $TAG
-        env: 
-          TAG: ${{ format('{0}.0.0', github.run_number) }}
-
       - name: Test for presence of Windows or macOS codesigning secrets
         id: vars
         shell: bash
@@ -109,7 +103,7 @@ jobs:
             const result = await github.git.getTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_sha: `${github.run_number}.0.0`
+              tag_sha: `${context.runNumber}.0.0`
             })
             console.log(result)
             return result
