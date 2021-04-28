@@ -12,16 +12,16 @@ To use this, you will need basic familiarity with git and GitHub. No other techn
 
 More detailed instructions follow, but here's the big-picture of what you'll be doing:
 
-1. You fork this git repo, and add your browser game to it. This'll be an `index.html` page and maybe some extra files like images or audio.
+1. Fork this git repo, and add your game's `index.html` file (and any art assets) to it.
 2. When you commit those changes to git and push them to GitHub, GitHub automatically takes your game files and bundles them up into downloadable desktop binaries
-3. The "Releases" section of your project's GitHub (https://github.com/username/repo/releases) will now contain downloadable Windows and Mac versions of your game
+3. Your GitHub repo's "Releases" section will now contain downloadable Windows and Mac versions of your game
 4. Any time you push new code to your repo, this process will repeat and new binaries will be auto-generated!
 
 ## Getting Started
 
-1. While viewing this project on GitHub, click the green "Use this Template" button at the top of the page. You will need to be logged in to GitHub to see that button.
+1. While logged in to GitHub and viewing this project, click the green "Use this Template" button at the top of the page.
 2. Move your game files into your new git repository. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
-3. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down around [line 89](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L89), in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
+3. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down on [line 89](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L89), in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
 4. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
 5. Commit and push these changes to GitHub
 6. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
@@ -112,11 +112,11 @@ Open a GitHub Issue in this repo!
 
 This project is an experiment, so I've intentionally kept the initial release very minimal. If people are actually using this, I'd love to expand on it! Let me know if you're using this and there's something you're dying to see added, or if there's some missing feature preventing you from using this, so I can prioritize improvements! Some specific things I'm currently thinking about:
 
+- Linux support
+- iOS and Android support
 - More customization options that don't require forking the Electron template
-- Linux build support
-- iOS and Android build support
-- Integration with store platforms (e.g. Itch.io, Steam) to auto-upload new builds via GH Actions
-- Supporting automatic updates (i.e. push out new versions of your game without requiring players to download new binaries)
+- Integration with store platforms (e.g. Itch.io, Steam) to automatically upload new builds
+- Game auto-updater (i.e. push out new versions of your game without requiring players to download new binaries)
 
 ## License
 
