@@ -25,7 +25,7 @@ More detailed instructions follow, but here's the big-picture of what you'll be 
 4. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
 5. Commit and push these changes to GitHub
 6. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
-7. When the build is done, the "Releases" section of your repo will contain download links. You can find that by going to https://github.com/YOUR_USERNAME/YOUR_REPO/releases, or clicking the "Releases" section on the right-hand side of your main rep page.
+7. When the build is done, the "Releases" section of your repo will contain download links. You can find that by clicking the "Releases" section on the right-hand side of your main repo page, or going directly to https://github.com/YOUR_USERNAME/YOUR_REPO/releases.
 
 As you make changes to your game, repeat the last few steps. Every new git commit that you make and push up to GitHub will result in a new build of your game.
 
