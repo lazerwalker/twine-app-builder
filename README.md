@@ -8,6 +8,8 @@ It's primarily intended to take games made in tools like [Twine](https://twinery
 
 To use this, you will need basic familiarity with git and GitHub. No other technical expertise is needed beyond whatever you need to make your game!
 
+For the technically-minded: this uses GitHub Actions to bundle up your game into a prewritten Electron app template, which then gets built for Windows and macOS.
+
 ## How to Use
 
 More detailed instructions follow, but here's the big-picture of what you'll be doing:
