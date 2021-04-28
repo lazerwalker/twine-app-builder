@@ -102,7 +102,7 @@ jobs:
       # If there is no passed-in tag, we auto-generate one based on run number
       # This makes sure a different process (e.g. a Windows build vs Mac build) hasn't created it
       - name: Check if auto-generated tag exists
-        uses: github/action-script@v4
+        uses: actions/github-script@v4
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
