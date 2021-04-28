@@ -2,30 +2,30 @@
 
 ![Build and Test](https://github.com/lazerwalker/twine-app-builder/actions/workflows/main.yml/badge.svg)
 
-This is a project to take your existing HTML5 game and automatically generate a desktop version for Windows and macOS. It works with any game whose output is HTML/JavaScript/CSS.
+This project takes your existing browser-based game and automatically generates a standalone desktop version for both Windows and macOS.
 
-The primary intention of this tool is to take games made in browser-based game development tools like [Twine](https://twinery.org) (both 1 and 2), [Bitsy](http://www.bitsy.org/), and [PuzzleScript](https://www.puzzlescript.net/) and produce desktop builds suitable for distribution on platforms such as Steam or Itch, but you may find other uses for it as well!
+It's primarily intended to take games made in tools like [Twine](https://twinery.org) (both 1 and 2), [Bitsy](http://www.bitsy.org/), and [PuzzleScript](https://www.puzzlescript.net/) and produce desktop builds suitable for distribution on platforms such as Steam or Itch. But you may find other uses for it as well! It works with any game whose output is HTML/JavaScript/CSS.
 
 To use this, you will need basic familiarity with git and GitHub. No other technical expertise is needed beyond whatever you need to make your game!
 
 ## How to Use
 
-There are more detailed instructions below, but here's what the high-level flow looks like for using this project:
+More detailed instructions follow, but here's the big-picture of what you'll be doing:
 
-1. You fork this git repo, and add your browser game to it (an `index.html` page and maybe some extra files like images or audio)
-2. When you commit those changes to git and push them to GitHub, GitHub will automatically take your game files and bundle them up into downloadable desktop binaries
+1. You fork this git repo, and add your browser game to it. This'll be an `index.html` page and maybe some extra files like images or audio.
+2. When you commit those changes to git and push them to GitHub, GitHub automatically takes your game files and bundles them up into downloadable desktop binaries
 3. The "Releases" section of your project's GitHub (https://github.com/username/repo/releases) will now contain downloadable Windows and Mac versions of your game
 4. Any time you push new code to your repo, this process will repeat and new binaries will be auto-generated!
 
 ## Getting Started
 
-1. Fork this repo. While viewing [this README](https://github.com/lazerwalker/twine-app-builder/) on GitHub, click the green "Use this Template" button at the top of the page.
-1. Move your game files into your copy of the repo. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
-1. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down around line 89, in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
-1. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
-1. Commit and push these changes to GitHub
-1. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
-1. When the build is done, the "Release" tab in your repo will contain download links.
+1. While viewing this project on GitHub, click the green "Use this Template" button at the top of the page. You will need to be logged in to GitHub to see that button.
+2. Move your game files into your new git repository. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
+3. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down around [line 89](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L89), in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
+4. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
+5. Commit and push these changes to GitHub
+6. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
+7. When the build is done, the "Releases" section of your repo will contain download links. You can find that by going to https://github.com/YOUR_USERNAME/YOUR_REPO/releases, or clicking the "Releases" section on the right-hand side of your main rep page.
 
 As you make changes to your game, repeat the last few steps. Every new git commit that you make and push up to GitHub will result in a new build of your game.
 
