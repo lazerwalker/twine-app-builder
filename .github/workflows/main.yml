@@ -99,6 +99,21 @@ jobs:
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: npm run make
 
+      # If there is no passed-in tag, we auto-generate one based on run number
+      # This makes sure a different process (e.g. a Windows build vs Mac build) hasn't created it
+      - name: Check if auto-generated tag exists
+        uses: github/action-script@v4
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const result = await github.git.getTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_sha: `${github.run_number}.0.0`
+            })
+            console.log(result)
+            return result
+
       # The next two steps are identical, except for explicitly passing in the tag name in the latter
       # I wish I knew how to do this in a more elegant way.
       # See also: I'd love to abstract out the startsWith() check and generated tag name into variable
