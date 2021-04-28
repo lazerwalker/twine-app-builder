@@ -105,7 +105,7 @@ jobs:
               const result = await github.git.getRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref: `${context.runNumber}.0.0`
+                ref: `tags/${context.runNumber}.0.0`
               })
               console.log(result)
               return true
