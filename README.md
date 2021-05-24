@@ -28,7 +28,7 @@ More detailed instructions follow, but here's the big-picture of what you'll be 
 3. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down on [line 89](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L89), in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
 4. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
 5. Commit and push these changes to GitHub
-6. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress.
+6. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress. If you don't see any progress in the Actions tab, you may need to enable Actions for your repo in the repository settings.
 7. When the build is done, the "Releases" section of your repo will contain download links. You can find that by clicking the "Releases" section on the right-hand side of your main repo page, or going directly to https://github.com/YOUR_USERNAME/YOUR_REPO/releases.
 
 As you make changes to your game, repeat the last few steps. Every new git commit that you make and push up to GitHub will result in a new build of your game.
