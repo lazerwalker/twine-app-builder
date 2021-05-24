@@ -6,6 +6,8 @@ This project takes your existing browser-based game and automatically generates 
 
 It's primarily intended to take games made in tools like [Twine](https://twinery.org) (both 1 and 2), [Bitsy](http://www.bitsy.org/), and [PuzzleScript](https://www.puzzlescript.net/) and produce desktop builds suitable for distribution on platforms such as Steam or Itch. But you may find other uses for it as well! It works with any game whose output is HTML/JavaScript/CSS.
 
+**And yes, it works with custom assets like images and audio!** If your game works in Google Chrome, it should work here. 
+
 To use this, you will need basic familiarity with git and GitHub. No other technical expertise is needed beyond whatever you need to make your game!
 
 For the technically-minded: this uses GitHub Actions to bundle up your game into a prewritten Electron app template, which then gets built for Windows and macOS.
@@ -22,7 +24,7 @@ More detailed instructions follow, but here's the big-picture of what you'll be 
 ## Getting Started
 
 1. While logged in to GitHub and viewing this project, click the green "Use this Template" button at the top of the page.
-2. Move your game files into your new git repository. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio.
+2. Move your game files into your new git repository. Put anything you'll need into the `src` folder. This must include an `index.html` file, which will be loaded in a custom web browser whenever players open your game, but might also include other resources like images or audio. If you have files like images and audio, it's better to include them here instead of linking externally so your game will work offline. 
 3. In your new repo, there will be a file in the `.github/workflows` subfolder called `main.yml`. Down on [line 89](https://github.com/lazerwalker/twine-app-builder/blob/main/.github/workflows/main.yml#L89), in the "Build the app" section, change the `APP_NAME` variable from "My Twine Game" to whatever you want your app to be called.
 4. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
 5. Commit and push these changes to GitHub
