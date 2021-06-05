@@ -87,7 +87,7 @@ Signing your Windows app removes the "untrusted publisher" warning message that 
 
 **Warning: This has not been tested and may not work as-is**
 
-1. Go through the process of [creating a certificate for package signing](https://docs.microsoft.com/en-us/windows/msix/package/create-certificate-package-signing?WT.mt_id=spatial-8466-emwalker).
+1. Go through the process of [creating a certificate for package signing](https://docs.microsoft.com/windows/msix/package/create-certificate-package-signing?WT.mt_id=spatial-8466-emwalker&WT.mc_id=spatial-0000-emwalker).
 1. Once you've done this and have a valid PFX file, base64 encode it. You can do this in PowerShell by using the command `certutil -encode infile outfile`.
 1. Open up your GitHub repo's Action Secrets (Settings -> Secrets), and create two "Repository secrets". `CERTIFICATE_WINDOWS_PFX` should contain the base64-encoded contents of your PFX file, and `WINDOWS_PFX_PASSWORD` should contain the password.
 
