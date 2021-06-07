@@ -44,6 +44,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: lazerwalker/electron-wrapper-template
+          ref: v1.0.0
           path: app
 
       - name: Set up Electron app environment
