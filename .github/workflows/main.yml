@@ -84,7 +84,7 @@ jobs:
           fileName: "win-certificate.pfx"
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
-      - name: Set name and description
+      - name: Set description and version number
         run: |
           node -e "\
           const fs = require('fs');\
