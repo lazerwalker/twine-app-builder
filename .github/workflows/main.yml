@@ -84,6 +84,18 @@ jobs:
           fileName: "win-certificate.pfx"
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
+      - name: Set name and description
+        run: |
+          node -e "\
+          const fs = require('fs');\
+          const pkg=require('./app/package.json');\
+          pkg.description=process.env.DESCRIPTION;\
+          pkg.version=process.env.VERSION;\
+          fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
+        env:
+          DESCRIPTION: My Twine game description
+          VERSION: "1.0.0"
+          
       - name: Build the app
         working-directory: ./app
         env:
