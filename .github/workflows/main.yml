@@ -24,8 +24,8 @@ jobs:
           APP_NAME: My Twine game
           DESCRIPTION: My Twine game description
 
-          # This must be of the format "vN.N.N", where the N's are all numbers
-          VERSION: v1.0.0
+          # This must be of the format "N.N.N", where the N's are all numbers
+          VERSION: 1.0.0
 
           # By default, the author will be your name on GitHub. You can manually change this.
           AUTHOR: ${{ github.repository_owner }}
