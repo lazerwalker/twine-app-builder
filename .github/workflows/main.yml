@@ -87,10 +87,12 @@ jobs:
           const pkg=require('./app/package.json');\
           pkg.description=process.env.DESCRIPTION;\
           pkg.version=process.env.VERSION;\
+          pkg.author=process.env.AUTHOR;\
           fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
         env:
           DESCRIPTION: My Twine game description
           VERSION: "1.0.0"
+          AUTHOR: ${{ github.repository_owner }}
           
       - name: Build the app
         working-directory: ./app
