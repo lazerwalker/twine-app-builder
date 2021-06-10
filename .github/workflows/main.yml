@@ -34,11 +34,11 @@ jobs:
           # Delete or comment out this line to disable that
           PUBLISH_ON_WEB: true
         run: |
-          echo set-output name=APP_NAME::${APP_NAME}
-          echo set-output name=DESCRIPTION::${DESCRIPTION}
-          echo set-output name=VERSION::${VERSION}          
-          echo set-output name=AUTHOR::${AUTHOR}
-          echo set-output name=PUBLISH_ON_WEB::${PUBLISH_ON_WEB}
+          echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
+          echo "DESCRIPTION=${DESCRIPTION}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "AUTHOR=${AUTHOR}" >> $GITHUB_ENV
+          echo "PUBLISH_ON_WEB=${PUBLISH_ON_WEB}" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -109,6 +109,7 @@ jobs:
           pkg.description=process.env.DESCRIPTION;\
           pkg.version=process.env.VERSION;\
           pkg.author=process.env.AUTHOR;\
+          console.log(process.env.VERSION;)\
           fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
           
       - name: Build the app
