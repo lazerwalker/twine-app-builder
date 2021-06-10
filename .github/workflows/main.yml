@@ -58,7 +58,7 @@ jobs:
         if: matrix.os == 'macos-latest'
         shell: bash
         run: |
-          if ! [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then exit 1 ; fi
+          if ! [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then exit 0 ; fi
           KEY_CHAIN=build.keychain
           CERTIFICATE_P12=certificate.p12
           echo $CERTIFICATE_OSX_APPLICATION | base64 --decode > $CERTIFICATE_P12
