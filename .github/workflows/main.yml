@@ -24,27 +24,21 @@ jobs:
         with:
           node-version: 12
 
-      - name: Test for presence of Windows or macOS codesigning secrets
+      - name: Test for presence of Windows codesigning secrets
         id: vars
         shell: bash
         run: |
-          unset HAS_APPLE_CREDS
-          if [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then HAS_APPLE_CREDS='true' ; fi
-          echo set-output name=HAS_APPLE_CREDS::${HAS_APPLE_CREDS}
-
           unset HAS_WINDOWS_CREDS
           if [[ -n $CERTIFICATE_WINDOWS_PFX ]]; then HAS_WINDOWS_CREDS='true' ; fi
           echo set-output name=HAS_WINDOWS_CREDS::${HAS_WINDOWS_CREDS}
         env:
-          CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
-          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
           CERTIFICATE_WINDOWS_PFX: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
       - name: Check out Electron app template
         uses: actions/checkout@v2
         with:
           repository: lazerwalker/electron-wrapper-template
-          ref: v1.0.0
+          ref: v1.1.0
           path: app
 
       - name: Set up Electron app environment
@@ -61,8 +55,10 @@ jobs:
         run: npm run build-icons
 
       - name: Add MacOS certs
-        if: matrix.os == 'macos-latest' && steps.vars.outputs.HAS_APPLE_CREDS
+        if: matrix.os == 'macos-latest'
+        shell: bash
         run: |
+          if ! [[ -n $CERTIFICATE_OSX_APPLICATION && -n $CERTIFICATE_PASSWORD ]]; then exit 1 ; fi
           KEY_CHAIN=build.keychain
           CERTIFICATE_P12=certificate.p12
           echo $CERTIFICATE_OSX_APPLICATION | base64 --decode > $CERTIFICATE_P12
@@ -71,7 +67,7 @@ jobs:
           security unlock-keychain -p actions $KEY_CHAIN
           security import $CERTIFICATE_P12 -k $KEY_CHAIN -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
           security set-key-partition-list -S apple-tool:,apple: -s -k actions $KEY_CHAIN
-          rm -fr *.p12chmod +x add-osx-cert.sh && ./add-osx-cert.sh
+          rm -fr *.p12
         env:
           CERTIFICATE_OSX_APPLICATION: ${{ secrets.CERTIFICATE_OSX_APPLICATION }}
           CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
@@ -102,6 +98,8 @@ jobs:
           APP_NAME: My Twine game
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_PROVIDER: ${{ secrets.APPLE_PROVIDER }}
+          CERTIFICATE_NAME: ${{ secrets.CERTIFICATE_NAME }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: npm run make

@@ -91,16 +91,30 @@ Signing your Windows app removes the "untrusted publisher" warning message that 
 1. Once you've done this and have a valid PFX file, base64 encode it. You can do this in PowerShell by using the command `certutil -encode infile outfile`.
 1. Open up your GitHub repo's Action Secrets (Settings -> Secrets), and create two "Repository secrets". `CERTIFICATE_WINDOWS_PFX` should contain the base64-encoded contents of your PFX file, and `WINDOWS_PFX_PASSWORD` should contain the password.
 
-### macOS Signing and Notarization
+### macOS Code Signing and Notarization
 
-Signing and notarizing your macOS app will avoid warnings that your app is unsigned, which may require users to go into their security settings to allow it to run. At some point, Apple may _require_ all apps to be notarized, but that has not yet happened as of the writing of this README. Signing and notarizong your app requires a paid Apple developer account.
+Apple has two different ways that you can sign your app for distribution on iOS.
 
-**Warning: This has not been tested and may not work as-is**
+**Code signing** is only needed if you plan to distribute your app on the Mac App Store. Right now, this project doesn't support code signing, but this may change in the future.
 
-To notarize your app, set up two repository secrets (from your fork's repo page, Settings -> Secrets -> New repository secret) called `APPLE_ID` and `APPLE_ID_PASSWORD` containing the username and password (respectively) to an Apple ID that has the ability to notarize apps. You may want to create a dedicated free Apple developer user that has been granted access to your paid account instead of storing your personal Apple ID credentials.
+**Notarization** is for apps being distributed outside the Mac App Store. Notarizing your macOS app will avoid warnings that your app is unsigned, which may require users to go into their security settings to allow it to run. At some point, Apple may _require_ all apps to be notarized, but that has not yet happened as of the writing of this README. Note that Steam requires Mac binaries to be notarized. In order to notarize apps, you will need a paid Mac development account, which costs $100/year. It also (currently) requires having access to a Mac to create your developer certificate. 
 
+To set up your app for notarization:
+
+1. Create an app-specific password for your Apple ID. You may consider creating a new free Apple developer user that has been granted access to your paid account instead of using your personal Apple ID credentials. https://support.apple.com/en-us/HT204397
+2. Set up two repository secrets (from your fork's repo page, Settings -> Secrets -> New repository secret) called `APPLE_ID` and `APPLE_ID_PASSWORD` containing the username and app-specific password (respectively). 
 Proper codesigning (instead of merely notarization) should be supported as well, but more work needs to be done here.
+3. Go to the [Certificates page](https://developer.apple.com/account/resources/certificates/list) on the Apple Developer Account site, click the plus button to create a new certificate, and select the "Developer ID Application" type. When prompted, create and upload a [certificate signing request](https://help.apple.com/developer-account/#/devbfa00fef7). Download the resulting .cer file.
+4. Double-click the .cer file you just opened to open up the Keychain Access app and add the new certificate to your keychain. In the Keychain Access app, search for "Developer ID Application" to pull up the certificate you just added.
+5. Note the full name of your certificate. This will probably look like "Developer ID Application: Your Name (string of random letters and numbers)". Back on GitHub, add another repository secret (Settings -> Secrets -> New repository secret) called `CERTIFICATE_NAME` whose value is that name (the entire title, including the "Developer ID Application").
+6. Right-click the certificate and select "Export". Export it as a .p12 file, and enter a passphrase when prompted.
+7. Create a new repository secret called `CERTIFICATE_PASSWORD` containing the passphrase you chose in the previous step
+8. Open a terminal window (Terminal.app) and execute the following line of code: `base64 -i path/to/your/certificate.p12` (swapping in the actual path for your certificate). This will generate a base64 string representing the certificate. Copy/paste this string into a new GitHub repository secret called `CERTIFICATE_OSX_APPLICATION`
+9. Finally, rebuild your game again! You can either make a change to your project files, or go to the "Actions" tab on your GitHub repo page, click the name of the most recent workflow run, and click the "Re-run" button in the top-right.
 
+If everything has been done right, the resulting macOS binary should be properly notarized! Note that Apple's notarization servers can be slow, and adding notarization to your app can add minutes or tens of minutes to your build process. Be patient!
+
+If you get an error that reads "Your Apple ID account is attached to other providers. You will need to specify which provider you intend to submit content to. Please contact us if you have questions or need help." (if you are a member of multiple Apple developer accounts) you will need to manually specify a provider. You can look up a list of your providers by running `xcrun altool --list-providers -u [your apple ID] -p [an app-specific password for your Apple ID]` on a Mac. Take the `ProviderShortname` of the provider you want and add it as a GitHub secret called `APPLE_PROVIDER`
 ## How does this project work?
 
 Under the hood, project relies on two core pieces of technology: [GitHub Actions](https://github.com/features/actions) and [Electron](https://www.electronjs.org/).
