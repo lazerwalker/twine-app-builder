@@ -30,7 +30,8 @@ More detailed instructions follow, but here's the big-picture of what you'll be 
 5. If you have a custom app icon you'd like to use, put that as `icon.png` in the root of the repo. It will be automatically resized as long as it is square and at least 1024x1024.
 6. Commit and push these changes to GitHub
 7. Wait a few minutes! You can go to the "Actions" tab in your GitHub repo to see build progress. If you don't see any progress in the Actions tab, you may need to enable Actions for your repo in the repository settings.
-8. When the build is done, the "Releases" section of your repo will contain download links. You can find that by clicking the "Releases" section on the right-hand side of your main repo page, or going directly to https://github.com/USERNAME/REPO_NAME/releases. As mentioned, a web copy of your game will also be hosted at https://USERNAME.github.io/REPO_NAME if enabled.
+8. When the build is done, the "Releases" section of your repo will contain download links. You can find that by clicking the "Releases" section on the right-hand side of your main repo page, or going directly to https://github.com/USERNAME/REPO_NAME/releases. 
+9. If you have the option enabled to host your game on the web, the first time you build your game you may need to enable GitHub Pages. Go to your repo's Settings page and click Pages. Set the Branch to `gh-pages` and click "Save". A web copy of your game should now be hosted at https://USERNAME.github.io/REPO_NAME.
 
 As you make changes to your game, repeat the last few steps. Every new git commit that you make and push up to GitHub will result in a new build of your game.
 
