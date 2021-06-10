@@ -29,11 +29,16 @@ jobs:
 
           # By default, the author will be your name on GitHub. You can manually change this.
           AUTHOR: ${{ github.repository_owner }}
+
+          # If this to 'true', a copy of your game will also be hosted on the web at https://USERNAME.github.io/REPO_NAME
+          # Delete or comment out this line to disable that
+          PUBLISH_ON_WEB: true
         run: |
           echo set-output name=APP_NAME::${APP_NAME}
           echo set-output name=DESCRIPTION::${DESCRIPTION}
           echo set-output name=VERSION::${VERSION}          
           echo set-output name=AUTHOR::${AUTHOR}
+          echo set-output name=PUBLISH_ON_WEB::${PUBLISH_ON_WEB}
 
       - name: Install Node.js
         uses: actions/setup-node@v1
@@ -116,6 +121,13 @@ jobs:
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.WINDOWS_PFX_PASSWORD }}
         run: npm run make
+
+      - name: Publish to GitHub Pages
+        if: env.PUBLISH_ON_WEB
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
 
       # If there is no passed-in tag, we auto-generate one based on run number
       # This makes sure a different process (e.g. a Windows build vs Mac build) hasn't created it
