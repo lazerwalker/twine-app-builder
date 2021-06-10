@@ -10,7 +10,7 @@ It's primarily intended to take games made in tools like [Twine](https://twinery
 
 To use this, you will need basic familiarity with git and GitHub. No other technical expertise is needed beyond whatever you need to make your game!
 
-For the technically-minded: this uses GitHub Actions to bundle up your game into a prewritten Electron app template, which then gets built for Windows and macOS.
+For the technically-minded: this uses GitHub Actions to bundle up your game into a prewritten Electron app template, which then gets built for Windows and macOS. If you opt to publish your game on the web, it also deploys your site to GitHub Pages.
 
 ## How to Use
 
@@ -18,7 +18,7 @@ More detailed instructions follow, but here's the big-picture of what you'll be 
 
 1. Fork this git repo, and add your game's `index.html` file (and any art assets) to it.
 2. When you commit those changes to git and push them to GitHub, GitHub automatically takes your game files and bundles them up into downloadable desktop binaries
-3. Your GitHub repo's "Releases" section will now contain downloadable Windows and Mac versions of your game
+3. Your GitHub repo's "Releases" section will now contain downloadable Windows and Mac versions of your game, and a web copy of your game will optionally be published as well
 4. Any time you push new code to your repo, this process will repeat and new binaries will be auto-generated!
 
 ## Getting Started
@@ -123,6 +123,7 @@ Under the hood, project relies on two core pieces of technology: [GitHub Actions
 
 - GitHub Actions is a free service integrated with GitHub that can run little bits of code on cloud servers whenever you do things like push new code to GitHub.
 - Electron is an open-source tool that lets you build desktop apps using browser technologies like HTML, JavaScript, and CSS
+- GitHub Pages is a free static site hosting service. It's used if you opt to publish a web version of your game through Twine App Builder
 
 I maintain a GitHub repo that contains a minimal scaffolding project built on Electron. When new code is pushed in your repo, a GitHub Action runs that grabs your HTML files, injects them into that scaffolding project, and builds the project for you using Electron tools.
 
