@@ -109,7 +109,6 @@ jobs:
           pkg.description=process.env.DESCRIPTION;\
           pkg.version=process.env.VERSION;\
           pkg.author=process.env.AUTHOR;\
-          console.log(process.env.VERSION;)\
           fs.writeFileSync('./app/package.json',JSON.stringify(pkg,undefined,'\t'));"
           
       - name: Build the app
