@@ -24,11 +24,15 @@ jobs:
           APP_NAME: My Twine game
           DESCRIPTION: My Twine game description
 
+          # This must be of the format "vN.N.N", where the N's are all numbers
+          VERSION: v1.0.0
+
           # By default, the author will be your name on GitHub. You can manually change this.
           AUTHOR: ${{ github.repository_owner }}
         run: |
           echo set-output name=APP_NAME::${APP_NAME}
           echo set-output name=DESCRIPTION::${DESCRIPTION}
+          echo set-output name=VERSION::${VERSION}          
           echo set-output name=AUTHOR::${AUTHOR}
 
       - name: Install Node.js
