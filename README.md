@@ -99,7 +99,7 @@ Apple has two different ways that you can sign your app for distribution on iOS.
 
 **Code signing** is only needed if you plan to distribute your app on the Mac App Store. Right now, this project doesn't support code signing, but this may change in the future.
 
-**Notarization** is for apps being distributed outside the Mac App Store. Notarizing your macOS app will avoid warnings that your app is unsigned, which may require users to go into their security settings to allow it to run. At some point, Apple may _require_ all apps to be notarized, but that has not yet happened as of the writing of this README. Note that Steam requires Mac binaries to be notarized. In order to notarize apps, you will need a paid Mac development account, which costs $100/year. It also (currently) requires having access to a Mac to create your developer certificate. 
+**Notarization** is for apps being distributed outside the Mac App Store. Notarizing your macOS app will avoid warnings that your app is unsigned, which may require users to go into their security settings to allow it to run. At some point, either Apple or Steam may _require_ all apps to be notarized, but neither of those has happened yet as of the writing of this README. In order to notarize apps, you will need a paid Mac development account, which costs $100/year. It also (currently) requires having access to a Mac to create your developer certificate. 
 
 To set up your app for notarization:
 
