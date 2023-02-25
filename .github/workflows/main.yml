@@ -1,5 +1,8 @@
 name: Build the Twine game
 
+permissions:
+  contents: write
+  
 on:
   push:
     branches:
