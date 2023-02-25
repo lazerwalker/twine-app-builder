@@ -22,7 +22,7 @@ jobs:
         os: [macos-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set game configuration
         env:
@@ -46,9 +46,9 @@ jobs:
           echo "PUBLISH_ON_WEB=${PUBLISH_ON_WEB}" >> $GITHUB_ENV
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 18
 
       - name: Test for presence of Windows codesigning secrets
         id: vars
@@ -61,7 +61,7 @@ jobs:
           CERTIFICATE_WINDOWS_PFX: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
 
       - name: Check out Electron app template
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: lazerwalker/electron-wrapper-template
           ref: v1.1.0
