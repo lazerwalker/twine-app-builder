@@ -37,7 +37,6 @@ jobs:
 
           # If this to 'true', a copy of your game will also be hosted on the web at https://USERNAME.github.io/REPO_NAME
           # Delete or comment out this line to disable that
-          PUBLISH_ON_WEB: true
         run: |
           echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
           echo "DESCRIPTION=${DESCRIPTION}" >> $GITHUB_ENV
